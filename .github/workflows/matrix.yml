@@ -5,11 +5,17 @@ on:
       - master
 jobs:
   build:
-    continue-on-error: true
+    # continue-on-error: true
     strategy:
       matrix:
         node-modules: [ 12, 16, 20, 24]
         OS: [ubuntu-latest, windows-latest]
+        include:
+          - node-modules: 22
+        exclude:
+          - node-modules: [12, 20, 24]
+          - OS: windows-latest
+
     runs-on: ubuntu-latest
     steps:
       - name: Get code
