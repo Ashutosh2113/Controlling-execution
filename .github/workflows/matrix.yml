@@ -17,7 +17,12 @@ jobs:
           - OS: windows-latest
 
     runs-on: ubuntu-latest
+    outputs:
+      step-output: ${{ steps.example-output.outputs.example-output }}
     steps:
+      - name: Setting Output
+        id: example-output
+        run: echo "example-output=test" >> "$GITHUB_OUTPUT"
       - name: Get code
         uses: actions/checkout@v6
       - name: Install NodeJS
@@ -26,3 +31,10 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+  example-job:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Accessing Oputput
+        run: echo ${{ needs.build.outputs.step-output }}
+    
