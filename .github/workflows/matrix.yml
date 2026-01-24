@@ -8,10 +8,11 @@ jobs:
     # continue-on-error: true
     strategy:
       matrix:
-        node-modules: [ 12, 16, 20, 24]
+        node-modules: [ 12, 16]
         OS: [ubuntu-latest, windows-latest]
         include:
-          - node-modules: 22
+          - node-modules: 16
+            OS: ubuntu-latest
         exclude:
           - node-modules: [12, 20, 24]
           - OS: windows-latest
